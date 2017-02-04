@@ -31,7 +31,22 @@ public class StringsTest {
      * @param s - this is the string that needs to be analyzed
      */
     public static void letterFrequency(String s) {
-        // your implementation goes here
+        String uc="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String test = uc + uc.toLowerCase();
+        int charCounts[] = new int[test.length()];
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            int idx = test.indexOf(c);
+            if (idx >= 0) {
+                charCounts[idx]++;
+            }
+        }
+
+        for (int i = 0; i < test.length(); i ++) {
+            if (charCounts[i]!=0)
+                System.out.println(test.charAt(i) + " => " + charCounts[i]);
+        }
     }
 
     /**
@@ -44,7 +59,33 @@ public class StringsTest {
      * @param s - this is the string to be analyzed
      */
     public static void consonantsDigitsAndVowels(String s) {
-        // your implementation here
+        String consonants = "BCDFGHJKLMNPQRSTVWXYZ";
+        consonants = consonants + consonants.toLowerCase();
+        String vowels = "AEIOU";
+        vowels = vowels + vowels.toLowerCase();
+        String digits = "0123456789";
+        int numConsonants = 0;
+        int numVowels = 0;
+        int numDigits = 0;
+        int numSpaces = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int idx;
+            char c = s.charAt(i);
+            if (consonants.indexOf(c)>=0) {
+                numConsonants++;
+            } else if (vowels.indexOf(c) >= 0) {
+                numVowels++;
+            } else if (digits.indexOf(c) >= 0) {
+                numDigits++;
+            } else if (c==' ') {
+                numSpaces++;
+            }
+        }
+        System.out.println("Consonants: " + numConsonants);
+        System.out.println("Vowels: " + numVowels);
+        System.out.println("Digits: " + numDigits);
+        System.out.println("Spaces: " + numSpaces);
+
     }
     /**
      * This function will break up the given string into words and print one line per word in the string
@@ -52,6 +93,16 @@ public class StringsTest {
      */
     public static void words(String s) {
         // your implementation goes here
+        do {
+            int idx = s.indexOf(' ');
+            if (idx < 0) {
+                System.out.println(s);
+                break;
+            }
+            String tmp = s.substring(0, idx);
+            s = s.substring(idx+1);
+            System.out.println(tmp);
+        } while(s.length() > 0);
     }
 
     /**
@@ -60,6 +111,11 @@ public class StringsTest {
      */
     public static void reverse(String s) {
         //your implementation goes here
+        String result = "";
+        for (int i = 0; i < s.length(); i++) {
+            result = s.charAt(i) + result;
+        }
+        System.out.println(s);
     }
 
 
@@ -73,7 +129,12 @@ public class StringsTest {
      * @return true if the string is all digits, false otherwise
      */
     public static boolean isNumber(String s) {
-        return false;
+        String digits = "0123456789";
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (digits.indexOf(c) < 0) return false;
+        }
+        return true;
     }
 
     /**
@@ -84,6 +145,15 @@ public class StringsTest {
      */
     public static int toNumber(String s) throws NumberFormatException
     {
-        return 0;
+        if (!isNumber(s))
+            throw new NumberFormatException(s + " is not a number");
+        int rv = 0;
+        int m = 1;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            int digit = c - '0';
+            rv = rv * 10 + digit;
+        }
+        return rv;
     }
 }
