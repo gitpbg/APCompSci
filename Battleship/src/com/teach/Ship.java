@@ -63,4 +63,8 @@ public class Ship {
     public String toString() {
         return String.format("(%d, %d) O: %d T: %c", row, column, orientation, image);
     }
+
+    public boolean canHit(Position p) {
+        return isPointInside(p.getRow(), p.getColumn());
+    }
 }
